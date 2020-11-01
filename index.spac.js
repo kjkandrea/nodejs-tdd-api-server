@@ -151,14 +151,15 @@ describe('PUT /user:id', () => {
     it('없는 user일 경우 404을 응답한다.', done => {
       request(app)
         .put('/users/999')
-        .expect(400)
+        .send({name: 'foo'})
+        .expect(404)
         .end(done)
     })
-    it('name이 중복 일 경우 404을 응답한다.', done => {
+    it('name이 중복 일 경우 409을 응답한다.', done => {
       request(app)
         .put('/users/3')
         .send({name: 'yusso'})
-        .expect(400)
+        .expect(409)
         .end(done)
     })
   })
