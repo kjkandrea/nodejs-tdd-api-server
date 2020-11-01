@@ -102,6 +102,7 @@ describe('POST users는', () => {
       body.should.have.property('name', name)
     })
   })
+  
   describe('실패 시', () => {
     it('name 패러미터 누락시 400을 반환한다.', done => {
       request(app)
@@ -113,7 +114,7 @@ describe('POST users는', () => {
     it('name이 중복일 시 409를 반환한다.', done => {
       request(app)
         .post('/users')
-        .send({name: 'andrea'})
+        .send({name: 'alice'})
         .expect(409)
         .end(done)
     })

@@ -46,6 +46,13 @@ app.delete('/users/:id', (req, res) => {
 
 app.post('/users', (req, res) => {
   const name = req.body.name
+
+  if (!name) return res.status(400).end()
+  
+  const isDuplicate = users.some(user => user.name === name)
+  
+  if (isDuplicate) return res.status(409).end()
+
   const id = Date.now()
   const user = {id, name}
   users.push(user)
