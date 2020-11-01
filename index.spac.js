@@ -12,5 +12,14 @@ describe('GET /users는', () => {
           done()
         })
     })
+
+    it('최대 limit 갯수만큼 응답한다.', (done) => {
+      request(app)
+        .get('/users?limit=2')
+        .end((req, res) => {
+          res.body.should.have.lengthOf(2)
+          done()
+        })
+    })
   })
 })
