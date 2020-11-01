@@ -28,7 +28,7 @@ describe('GET /users는', () => {
       request(app)
         .get('/users?limit=two')
         .expect(400)
-        .end(done)
+        .end(done())
     })
   })
 })
