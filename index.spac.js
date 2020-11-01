@@ -80,3 +80,26 @@ describe('DELETE users/1는', () => {
     })
   })
 })
+
+describe('POST users는', () => {
+  describe('성공 시', () => {
+    let name = 'haebogoyang',
+        body;
+    before(done => {
+      request(app)
+        .post('/users')
+        .send({name})
+        .expect(201)
+        .end((req, res) => {
+          body = res.body
+          done()
+        })
+    })
+    it('생성된 유저 객체를 반환한다.', () => {
+      body.should.have.property('id')
+    })
+    it('입력한 name을 반환한다.', () => {
+      body.should.have.property('name', name)
+    })
+  })
+})
