@@ -126,11 +126,11 @@ describe('PUT /user:id', () => {
     it('변경된 name을 응답한다.', done => {
       const name = 'soojin'
       request(app)
-        .put('/users/4')
-        .send(name)
+        .put('/users/3')
+        .send({name})
         .end((req, res) => {
           res.body.should.have.property('name', name)
-          .done()
+          done()
         })
     })
   })
