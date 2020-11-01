@@ -67,7 +67,7 @@ describe('DELETE users/1는', () => {
       request(app)
         .delete('/users/1')
         .expect(204)
-        .end(done())
+        .end(done)
     })
   })
 })

@@ -3,7 +3,7 @@ const app = express()
 const morgan = require('morgan')
 const port = 3000
 
-const users = [
+let users = [
   {id: 1, name:'andrea'},
   {id: 2, name:'yusso'},
   {id: 3, name:'alice'}
@@ -30,6 +30,13 @@ app.get('/users/:id', (req, res) => {
   if (!user) return res.status(404)
 
   res.json(user)
+})
+
+app.delete('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10)
+
+  users = users.filter((user) => user.id !== id)
+  res.status(204).end()
 })
 
 app.listen(port, () => {
