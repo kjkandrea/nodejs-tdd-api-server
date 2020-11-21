@@ -4,9 +4,15 @@ const app = require('../../index')
 const models = require('../../models')
 
 describe('GET /users', () => {
-  describe('성공 시', () => {
+  describe.only('성공 시', () => {
+    const users = [
+      {name: 'soojin'},
+      {name: 'haebogoyang'},
+      {name: 'mummu'}
+    ]
     before(() => models.sequelize.sync({force: true}))
-    it.only('유저 객체를 담은 배열로 응답한다.', (done) => {
+    before(() => models.User.bulkCreate(users))
+    it('유저 객체를 담은 배열로 응답한다.', (done) => {
       request(app)
         .get('/users')
         .end((err, res) => {

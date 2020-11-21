@@ -6,7 +6,10 @@ const index = (req, res) => {
 
   if (Number.isNaN(limit)) return res.status(400).end()
 
-  models.User.findAll({})
+  models.User
+    .findAll({
+      limit: limit
+    })
     .then(users => {
       res.json(users)
     })
