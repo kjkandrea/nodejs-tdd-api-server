@@ -4,7 +4,7 @@
   "description": "empty",
   "main": "index.js",
   "scripts": {
-    "test": "mocha index.spac.js"
+    "test": "mocha api/user/user.spec.js"
   },
   "repository": {
     "type": "git",
