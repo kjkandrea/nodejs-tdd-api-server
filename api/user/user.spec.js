@@ -150,7 +150,7 @@ describe('POST users', () => {
   })
 })
 
-describe.only('PUT /user:id', () => {
+describe('PUT /user:id', () => {
   const users = [
     {name: 'andrea'},
     {name: 'yusso'},
