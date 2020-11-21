@@ -1,13 +1,15 @@
 const request = require('supertest')
 const should = require('should')
 const app = require('../../index')
+const models = require('../../models')
 
 describe('GET /users', () => {
   describe('성공 시', () => {
-    it('유저 객체를 담은 배열로 응답한다.', (done) => {
+    before(() => models.sequelize.sync({force: true}))
+    it.only('유저 객체를 담은 배열로 응답한다.', (done) => {
       request(app)
         .get('/users')
-        .end((req, res) => {
+        .end((err, res) => {
           res.body.should.be.instanceOf(Array)
           done()
         })
@@ -16,7 +18,7 @@ describe('GET /users', () => {
     it('최대 limit 갯수만큼 응답한다.', (done) => {
       request(app)
         .get('/users?limit=2')
-        .end((req, res) => {
+        .end((err, res) => {
           res.body.should.have.lengthOf(2)
           done()
         })
