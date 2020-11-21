@@ -68,15 +68,26 @@ const update = (req, res) => {
   const name = req.body.name
   if (!name) return res.status(400).end()
 
-  const isDuplicate = users.some(user => user.name === name)
-  if (isDuplicate) return res.status(409).end()
+  // if (isDuplicate) return res.status(409).end()
 
-  const user = users.filter(user => user.id === id)[0]
-  if (!user) return res.status(404).end()
 
-  user.name = name
+  models.User
+    .findOne({ where: {id}})
+    .then(user => {
+      if (!user) return res.status(404).end()
 
-  res.json(user)
+      user.name = name
+      user.save()
+          .then(() => {
+            res.json(user)
+          })
+          .catch(err => {
+            if (err.name === 'SequelizeUniqueConstraintError') {
+              return res.status(409).end()
+            }
+            return res.status(500).end()
+          })
+    })
 }
 
 module.exports = {

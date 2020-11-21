@@ -103,7 +103,7 @@ describe('DELETE users/1', () => {
   })
 })
 
-describe.only('POST users', () => {
+describe('POST users', () => {
   const users = [
     {name: 'andrea'},
     {name: 'yusso'},
@@ -150,7 +150,14 @@ describe.only('POST users', () => {
   })
 })
 
-describe('PUT /user:id', () => {
+describe.only('PUT /user:id', () => {
+  const users = [
+    {name: 'andrea'},
+    {name: 'yusso'},
+    {name: 'alice'}
+  ]
+  before(() => models.sequelize.sync({force: true}))
+  before(() => models.User.bulkCreate(users))
   describe('성공 시', () => {
     it('변경된 name을 응답한다.', done => {
       const name = 'soojin'
