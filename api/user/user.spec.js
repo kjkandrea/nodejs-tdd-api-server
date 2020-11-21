@@ -3,8 +3,8 @@ const should = require('should')
 const app = require('../../index')
 const models = require('../../models')
 
-describe('GET /users', () => {
-  describe.only('성공 시', () => {
+describe.only('GET /users', () => {
+  describe('성공 시', () => {
     const users = [
       {name: 'soojin'},
       {name: 'haebogoyang'},
