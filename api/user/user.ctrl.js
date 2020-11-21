@@ -43,16 +43,22 @@ const destroy = (req, res) => {
 const create = (req, res) => {
   const name = req.body.name
 
+  console.log('name: %s', name)
+
   if (!name) return res.status(400).end()
   
-  const isDuplicate = users.some(user => user.name === name)
-  
-  if (isDuplicate) return res.status(409).end()
-
-  const id = Date.now()
-  const user = {id, name}
-  users.push(user)
-  res.status(201).json(user)
+  models.User
+    .create({ name })
+    .then(user => {
+      console.log('done??2')
+      res.status(201).json(user)
+    })
+    .catch(err => {
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(409).end()
+      }
+      return res.status(500).end()
+    })
 }
 
 const update = (req, res) => {

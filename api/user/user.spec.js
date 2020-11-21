@@ -4,14 +4,14 @@ const app = require('../../index')
 const models = require('../../models')
 
 describe('GET /users', () => {
+  const users = [
+    {name: 'andrea'},
+    {name: 'yusso'},
+    {name: 'alice'}
+  ]
+  before(() => models.sequelize.sync({force: true}))
+  before(() => models.User.bulkCreate(users))
   describe('성공 시', () => {
-    const users = [
-      {name: 'soojin'},
-      {name: 'haebogoyang'},
-      {name: 'mummu'}
-    ]
-    before(() => models.sequelize.sync({force: true}))
-    before(() => models.User.bulkCreate(users))
     it('유저 객체를 담은 배열로 응답한다.', (done) => {
       request(app)
         .get('/users')
@@ -42,6 +42,13 @@ describe('GET /users', () => {
 })
 
 describe('GET users/1', () => {
+  const users = [
+    {name: 'andrea'},
+    {name: 'yusso'},
+    {name: 'alice'}
+  ]
+  before(() => models.sequelize.sync({force: true}))
+  before(() => models.User.bulkCreate(users))
   describe('성공 시', () => {
     it('id가 1인 유저 객체를 반환한다.', (done) => {
       request(app)
@@ -69,7 +76,14 @@ describe('GET users/1', () => {
   })
 })
 
-describe.only('DELETE users/1', () => {
+describe('DELETE users/1', () => {
+  const users = [
+    {name: 'andrea'},
+    {name: 'yusso'},
+    {name: 'alice'}
+  ]
+  before(() => models.sequelize.sync({force: true}))
+  before(() => models.User.bulkCreate(users))
   describe('성공 시', () => {
     it('204를 응답한다.', (done) => {
       request(app)
@@ -89,7 +103,14 @@ describe.only('DELETE users/1', () => {
   })
 })
 
-describe('POST users', () => {
+describe.only('POST users', () => {
+  const users = [
+    {name: 'andrea'},
+    {name: 'yusso'},
+    {name: 'alice'}
+  ]
+  before(() => models.sequelize.sync({force: true}))
+  before(() => models.User.bulkCreate(users))
   describe('성공 시', () => {
     let name = 'haebogoyang',
         body;
@@ -98,7 +119,7 @@ describe('POST users', () => {
         .post('/users')
         .send({name})
         .expect(201)
-        .end((req, res) => {
+        .end((err, res) => {
           body = res.body
           done()
         })
